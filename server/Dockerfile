@@ -3,7 +3,7 @@ LABEL authors="vasilyev"
 
 
 
-ADD /target/server-1.0-SNAPSHOT.jar server
+ADD /build/libs/server-1.0-SNAPSHOT.jar server
 
 
 
