@@ -1,10 +1,10 @@
 FROM gradle:8.4.0-jdk8
 LABEL authors="vasilyev"
 
-WORKDIR /
 
-COPY / .
 
-RUN gradle build
+ADD /target/server-1.0-SNAPSHOT.jar server
 
-ENTRYPOINT ["java", "-jar", "/build/libs/server-1.0-SNAPSHOT.jar"]
+
+
+ENTRYPOINT ["java", "-jar", "/server"]
