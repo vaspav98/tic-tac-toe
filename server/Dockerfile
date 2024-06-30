@@ -7,4 +7,4 @@ ADD /build/libs/server-1.0-SNAPSHOT.jar server
 
 
 
-ENTRYPOINT ["java", "-jar", "/server"]
+ENTRYPOINT ["java", "-jar", "server"]
