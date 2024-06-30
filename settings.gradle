@@ -1,0 +1,6 @@
+rootProject.name = 'tic-tac-toe'
+include("front")
+include("front2")
+include("front3")
+include("front4")
+include 'server'

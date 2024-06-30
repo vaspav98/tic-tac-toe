@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="359.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.example.JavaFX.fxController.WelcomeController">
+   <children>
+      <Button fx:id="single" mnemonicParsing="false" onAction="#chooseMode" prefHeight="210.0" prefWidth="359.0" text="Single Player">
+         <font>
+            <Font name="Tlwg Typewriter Bold" size="30.0" />
+         </font>
+      </Button>
+      <Button fx:id="multi" layoutY="210.0" mnemonicParsing="false" onAction="#chooseMode" prefHeight="210.0" prefWidth="359.0" text="Multiplayer">
+         <font>
+            <Font name="Tlwg Typewriter Bold" size="30.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -1,0 +1,2 @@
+startAll:
+	./gradlew clean build
