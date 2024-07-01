@@ -1,6 +1,6 @@
 package io.example.JavaFX.fxController;
 
-import io.example.JavaFX.Application;
+import io.example.Application;
 import io.example.WebSocketClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

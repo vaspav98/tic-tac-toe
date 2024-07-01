@@ -1,6 +1,5 @@
 package io.example;
 
-import io.example.JavaFX.Application;
 import io.example.JavaFX.fxController.FXController;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;

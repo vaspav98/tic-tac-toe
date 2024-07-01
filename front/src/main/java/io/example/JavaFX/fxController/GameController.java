@@ -2,7 +2,7 @@ package io.example.JavaFX.fxController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.example.JavaFX.Application;
+import io.example.Application;
 import io.example.JavaFX.BigGame;
 import io.example.JavaFX.SharedData;
 import io.example.WebSocketClient;
@@ -11,11 +11,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -25,7 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -138,8 +134,9 @@ public class GameController extends FXController {
         game = new BigGame(sharedData.getRole(), sharedData.getNumberOfPlayers());
         youLabel.setText("You: " + sharedData.getUsername() + " (role - \"" + sharedData.getRole() + "\")");
 
-        int index = 1;
+        int index = 0;
         for (Map<String, Object> opponent : sharedData.getOpponents()) {
+            index += 1;
             if (index == 1) {
                 vBox1.setVisible(true);
                 vBox1.setId(String.valueOf(opponent.get("role")));

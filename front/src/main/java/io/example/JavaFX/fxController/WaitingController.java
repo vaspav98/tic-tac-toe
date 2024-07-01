@@ -1,9 +1,8 @@
 package io.example.JavaFX.fxController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.example.JavaFX.Application;
+import io.example.Application;
 import io.example.JavaFX.SharedData;
-import io.example.JavaFX.fxController.FXController;
 import io.example.WebSocketClient;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -11,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import java.io.IOException;

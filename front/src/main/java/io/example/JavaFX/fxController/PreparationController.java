@@ -3,9 +3,8 @@ package io.example.JavaFX.fxController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.example.JavaFX.Application;
+import io.example.Application;
 import io.example.JavaFX.SharedData;
-import io.example.JavaFX.fxController.FXController;
 import io.example.WebSocketClient;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.HashMap;
