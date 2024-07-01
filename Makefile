@@ -24,3 +24,6 @@ prepare-jars-before-pushing:
 	gradle front:build
 	cp front/build/libs/front-1.0-SNAPSHOT.jar front/
 
+	gradle server:clean
+	gradle server:build
+	cp server/build/libs/server-1.0-SNAPSHOT.jar server/
