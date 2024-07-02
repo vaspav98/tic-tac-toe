@@ -3,6 +3,7 @@ package io.example.JavaFX.fxController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.example.Application;
 import io.example.JavaFX.SharedData;
+import io.example.JavaFX.Utils;
 import io.example.WebSocketClient;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -63,8 +64,7 @@ public class WaitingController {
         Scene scene = new Scene(Application.getFxmlLoader().load(), 360, 420);
         exitButton.getScene().getWindow().hide();
 
-        stage.setResizable(false);
-        stage.setTitle("Tic-Tac-Toe");
+        Utils.initializeStandardSettings(stage);
         stage.setScene(scene);
         stage.show();
     }

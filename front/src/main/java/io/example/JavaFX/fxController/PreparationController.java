@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.example.Application;
 import io.example.JavaFX.SharedData;
+import io.example.JavaFX.Utils;
 import io.example.WebSocketClient;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -214,8 +215,7 @@ public class PreparationController extends FXController {
         } else {
             return;
         }
-        newStage.setResizable(false);
-        newStage.setTitle("Tic-Tac-Toe");
+        Utils.initializeStandardSettings(newStage);
         newStage.setScene(scene);
         newStage.show();
     }

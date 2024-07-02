@@ -5,6 +5,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class WebSocketClient {
 
@@ -13,13 +14,11 @@ public class WebSocketClient {
 
     private WebSocketSession session;
 
-    public void connect() {
-        try {
-            org.springframework.web.socket.client.WebSocketClient client = new StandardWebSocketClient();
-            session = client.doHandshake(new MyWebSocketHandler(), URL).get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void connect() throws ExecutionException, InterruptedException {
+
+        org.springframework.web.socket.client.WebSocketClient client = new StandardWebSocketClient();
+        session = client.doHandshake(new MyWebSocketHandler(), URL).get();
+
     }
 
     public void sendMessage(String message) {

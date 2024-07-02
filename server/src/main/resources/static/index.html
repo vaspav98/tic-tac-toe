@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tic-Tac-Toe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <style>
+        a {
+            color: #0012b0; /* Общий цвет всех ссылок */
+        }
+        .image-position {
+            position: absolute;
+            bottom: 100px; /* Adjust based on your needs */
+            right: 170px; /* Adjust based on your needs */
+        }
+        .gradient {
+            background-image:
+            repeating-radial-gradient(circle at 0 100%, rgba(27,27,30, 0.1), rgba(88,164,176, 0.15) 1px, rgba(216,219,226, 0.2) 2px, rgba(88,164,176, 0.15) 3px, rgba(27,27,30, 0.1) 4px),
+            radial-gradient(circle at 0 100%, #e8769a, #6bd0f2);
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column min-vh-100 gradient">
+<main class="flex-grow-1">
+    <div class="container-lg mt-5">
+        <h1>Tic-Tac-Toe</h1>
+        <h3>Скачать игру</h3>
+
+        <table class="table table-bordered table-hover mt-3">
+            <thead>
+            <tr>
+                <th class="col-1">ОС</th>
+                <th class="col-1">Файл для скачивания</th>
+                <th class="col-3">Инструкция</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Linux</td>
+                <td>
+                    <a href="tic-tac-toe.jar" download>tic-tac-toe.jar</a>
+                </td>
+                <td>
+                    <ol>
+                        <li>Убедитесь, что на вашем компьютере установлен JRE версии 8</li>
+                        <li>Открыв терминал, перейдите в директорию, где находится jar файл</li>
+                        <li>Запускаем jar файл:
+                            <ul>
+                                <li>Если java версии 8 стоит по умолчанию, то просто java -jar tic-tac-toe.jar</li>
+                                <li>Инача - (путь/до/исполняемого/файла/java/8)/java -jar tic-tac-toe.jar</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </td>
+            </tr>
+            <tr>
+                <td>Windows</td>
+                <td>
+                    <a href="tic-tac-toe.7z" download>tic-tac-toe.7z</a>
+                </td>
+                <td>
+                    <ol>
+                        <li>Распакуйте архив</li>
+                        <li>Найдите в папке файл tic-tac-toe.exe и дважды кликните по нему, чтобы запустить игру</li>
+                    </ol>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="image-position">
+            <img src="icon7.png" width="130" height="130">
+        </div>
+    </div>
+</main>
+
+<footer class="footer py-3 mt-5">
+    <div class="container-xl">
+        <div class="text-center">
+            created by
+            <a href="https://github.com/vaspav98" target="_blank">Pavel Vasilev</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

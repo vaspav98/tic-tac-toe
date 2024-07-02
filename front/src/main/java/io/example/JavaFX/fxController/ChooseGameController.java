@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.example.Application;
 import io.example.JavaFX.SharedData;
+import io.example.JavaFX.Utils;
 import io.example.WebSocketClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -197,8 +199,7 @@ public class ChooseGameController extends FXController {
         } else {
             return;
         }
-        newStage.setResizable(false);
-        newStage.setTitle("Tic-Tac-Toe");
+        Utils.initializeStandardSettings(newStage);
         newStage.setScene(scene);
         newStage.show();
     }

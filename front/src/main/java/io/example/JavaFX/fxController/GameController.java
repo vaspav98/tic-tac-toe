@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.example.Application;
 import io.example.JavaFX.BigGame;
 import io.example.JavaFX.SharedData;
+import io.example.JavaFX.Utils;
 import io.example.WebSocketClient;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -173,11 +174,10 @@ public class GameController extends FXController {
                                 sendMsgToRemoteServer("skip", null);
                                 game.switchPlayerTurn();
                                 timerLabel.setVisible(false);
-                                System.out.println("zzzzzzzzzzzz");
-                                Platform.runLater(() -> {
+        /*                        Platform.runLater(() -> {
                                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Время на ход ситекло", ButtonType.OK);
                                     alert.showAndWait();
-                                });
+                                });*/
                             }
                         }));
 
@@ -298,8 +298,7 @@ public class GameController extends FXController {
             throw new RuntimeException(e);
         }
 
-        stage.setResizable(false);
-        stage.setTitle("Tic-Tac-Toe");
+        Utils.initializeStandardSettings(stage);
         stage.setScene(scene);
         stage.show();
         gridPane.getScene().getWindow().hide();
@@ -326,7 +325,7 @@ public class GameController extends FXController {
         sendMsgToRemoteServer(x, y);
         sendMsgToRemoteServer("finish", null);
 
-        ButtonType exit = new ButtonType("exit");
+        ButtonType exit = new ButtonType("Exit");
         Alert alert = new Alert(Alert.AlertType.NONE, "Победитель - \"" + btn.getText() + "\"!",
                 exit);
 

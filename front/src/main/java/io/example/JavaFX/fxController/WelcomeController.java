@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class WelcomeController {
 
@@ -18,7 +19,7 @@ public class WelcomeController {
     private AnchorPane anchorPane;
 
     @FXML
-    void chooseMode(ActionEvent event) throws IOException {
+    void chooseMode(ActionEvent event) throws IOException, ExecutionException, InterruptedException {
         Button button = (Button) event.getSource();
 
         if (button.getId().equals("multi")) {
