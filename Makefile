@@ -23,7 +23,6 @@ prepare-jars-before-pushing:
 	gradle front:clean
 	gradle front:build
 	cp front/build/libs/front-1.0-SNAPSHOT.jar server/src/main/resources/static/tic-tac-toe.jar
-	mv front/front-1.0-SNAPSHOT.jar front/tic-tac-toe.jar
 
 	gradle server:clean
 	gradle server:build
