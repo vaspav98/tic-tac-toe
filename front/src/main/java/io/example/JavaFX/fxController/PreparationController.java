@@ -178,7 +178,7 @@ public class PreparationController extends FXController {
                     char role = ((String) entry.getValue()).charAt(0);
                     opponent.put("role", role);
                     if (newStage == null) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Оппонет вбрыл - " + role, ButtonType.OK);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Оппонет выбрал - " + role, ButtonType.OK);
                         alert.showAndWait();
                     }
                 } else if (entry.getKey().equals("nick")) {

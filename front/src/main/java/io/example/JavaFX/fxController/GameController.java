@@ -211,11 +211,10 @@ public class GameController extends FXController {
         btn.setText(String.valueOf(game.getNowSym()));
         game.clickBtn(x, y);
 
+        sendMsgToRemoteServer(x, y);
         if (!game.isGame()) {
             handleGameOver(x, y, btn);
         }
-
-        sendMsgToRemoteServer(x, y);
     }
     @FXML
     void submit(ActionEvent event) throws JsonProcessingException {
@@ -322,11 +321,23 @@ public class GameController extends FXController {
     }
 
     public void handleGameOver(int x, int y, Button btn) {
-        sendMsgToRemoteServer(x, y);
+//        sendMsgToRemoteServer(x, y);
         sendMsgToRemoteServer("finish", null);
 
         ButtonType exit = new ButtonType("Exit");
-        Alert alert = new Alert(Alert.AlertType.NONE, "Победитель - \"" + btn.getText() + "\"!",
+
+        String winnerNick;
+        if (game.isMyTurn()) {
+            winnerNick = sharedData.getUsername();
+        } else {
+            winnerNick = (String) sharedData.getOpponents().stream()
+                    .filter(map -> (String.valueOf(map.get("role"))).equals(btn.getText()))
+                    .map(map -> map.get("nick"))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException());
+        }
+
+        Alert alert = new Alert(Alert.AlertType.NONE, "Победитель - " + winnerNick + " (" + btn.getText() + ")!",
                 exit);
 
         alert.setResultConverter(b -> {

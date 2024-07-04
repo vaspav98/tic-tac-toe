@@ -27,3 +27,12 @@ prepare-jars-before-pushing:
 	gradle server:clean
 	gradle server:build
 	cp server/build/libs/server-1.0-SNAPSHOT.jar server/
+
+refresh-all:
+		rm -r front2/src &
+		rm -r front3/src &
+		rm -r front4/src &
+		gradle front:clean
+		cp -r front/src front2/src
+		cp -r front/src front3/src
+		cp -r front/src front4/src

@@ -47,6 +47,7 @@ public class BigGame {
             }
             if (winStreak >= 5) {
                 isGame = false;
+                return;
             }
         }
         winStreak = 0;
@@ -60,6 +61,7 @@ public class BigGame {
             }
             if (winStreak >= 5) {
                 isGame = false;
+                return;
             }
         }
         winStreak = 0;
@@ -74,9 +76,9 @@ public class BigGame {
                 }
                 if (winStreak >= 5) {
                     isGame = false;
+                    return;
                 }
             } catch (IndexOutOfBoundsException ignored) {
-/*                System.out.println("Такой клетки нет");*/
             }
         }
         winStreak = 0;
@@ -91,9 +93,9 @@ public class BigGame {
                 }
                 if (winStreak >= 5) {
                     isGame = false;
+                    return;
                 }
             } catch (IndexOutOfBoundsException ignored) {
-/*                System.out.println("Такой клетки нет");*/
             }
         }
 
