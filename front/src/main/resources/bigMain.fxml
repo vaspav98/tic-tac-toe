@@ -29,7 +29,7 @@
       </VBox>
       <VBox layoutX="684.0" layoutY="151.0" prefHeight="36.0" prefWidth="318.0" style="-fx-background-color: #a19f9f; -fx-background-radius: 5px; -fx-border-radius: 5px;">
          <children>
-            <Label fx:id="youLabel1" prefHeight="72.0" prefWidth="488.0" style="-fx-border-radius: 50;" text="Opponents:">
+            <Label prefHeight="72.0" prefWidth="488.0" style="-fx-border-radius: 50;" text="Opponents:">
                <font>
                   <Font name="Tlwg Typewriter Bold" size="17.0" />
                </font>
@@ -2098,14 +2098,6 @@
                </font>
             </Button>
          </children>
-      </GridPane>
-      <GridPane fx:id="opponentsTable" layoutX="768.0" layoutY="661.0" prefHeight="30.0" prefWidth="318.0" style="-fx-background-color: #a19f9f; -fx-background-radius: 5px; -fx-border-radius: 5px;" visible="false">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-         </rowConstraints>
       </GridPane>
       <Button fx:id="exitButton" layoutX="684.0" layoutY="703.0" mnemonicParsing="false" onAction="#exit" prefHeight="36.0" prefWidth="128.0" text="Give up!">
          <font>

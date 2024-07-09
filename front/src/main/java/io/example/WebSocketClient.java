@@ -9,8 +9,8 @@ import java.util.concurrent.ExecutionException;
 
 public class WebSocketClient {
 
-    private static final String URL = "ws://localhost:8080/events"; // URL вашего WebSocket сервера
-/*    private static final String URL = "ws://tic-tac-toe-olr4.onrender.com//events";*/
+/*    private static final String URL = "ws://localhost:8080/events"; */
+    private static final String URL = "ws://tic-tac-toe-olr4.onrender.com//events";
 
     private WebSocketSession session;
 

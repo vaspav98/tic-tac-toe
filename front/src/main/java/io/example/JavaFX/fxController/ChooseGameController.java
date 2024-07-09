@@ -2,11 +2,8 @@ package io.example.JavaFX.fxController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.example.Application;
-import io.example.JavaFX.SharedData;
 import io.example.JavaFX.Utils;
-import io.example.WebSocketClient;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,8 +16,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -30,12 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ChooseGameController extends FXController {
-
-    @FXML
-    private AnchorPane anchorPane;
-
-    @FXML
-    private Button createGameButton;
 
     @FXML
     private TextField gameName;
@@ -53,13 +42,9 @@ public class ChooseGameController extends FXController {
     private RadioButton radio4;
 
     private ToggleGroup toggleGroup;
-    private WebSocketClient webSocketClient = Application.getWebsocketClient();
 
-    private ObjectMapper om = new ObjectMapper();
     private int freeRow = 0;
     private Stage newStage = new Stage();
-
-    private SharedData sharedData = SharedData.getInstance();
 
     @FXML
     void createGame(ActionEvent event) throws IOException {
@@ -87,46 +72,35 @@ public class ChooseGameController extends FXController {
 
         int numberOfPlayers = Integer.parseInt(((RadioButton) toggleGroup.getSelectedToggle()).getText());
 
-        sharedData.setNumberOfPlayers(numberOfPlayers);
-        sharedData.setGameName(gameName);
-        sharedData.setConnections(1);
+        SHARED_DATA.setNumberOfPlayers(numberOfPlayers);
+        SHARED_DATA.setGameName(gameName);
+        SHARED_DATA.setConnections(1);
 
-        Map<String, Object> msg = new HashMap<>();
+
         Map<String, Object> game = new HashMap<>();
         game.put("name", gameName);
         game.put("num", numberOfPlayers);
-        msg.put("createGame", game);
 
-        sendMsgToRemoteServer(msg);
-
-        Map<String, Object> connection = new HashMap<>();
-        connection.put("connection", gameName);
-        sendMsgToRemoteServer(connection);
+        sendMsgToRemoteServer("createGame", game);
+        sendMsgToRemoteServer("connection", gameName);
 
         changeScene(1);
     }
 
     @FXML
-    void initialize() throws JsonProcessingException {
+    void initialize() {
         toggleGroup = new ToggleGroup();
         toggleGroup.getToggles().addAll(radio2, radio3, radio4);
         toggleGroup.selectToggle(radio2);
 
-        Map<String, Object> msg = new HashMap<>();
-        msg.put("getAllGames", null);
-        sendMsgToRemoteServer(msg);
-    }
-
-    public void sendMsgToRemoteServer(Map<String, Object> msg) throws JsonProcessingException {
-        String json = om.writeValueAsString(msg);
-        webSocketClient.sendMessage(json);
+        sendMsgToRemoteServer("getAllGames", null);
     }
 
     @Override
     public void updateInterface(String message) {
         Map<String, Object> msg;
         try {
-            msg = om.readValue(message, new TypeReference<Map<String, Object>>() {
+            msg = OBJECT_MAPPER.readValue(message, new TypeReference<Map<String, Object>>() {
             });
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -150,9 +124,9 @@ public class ChooseGameController extends FXController {
                     throw new RuntimeException(e);
                 }
             } else if (msg.containsKey("connection")) {
-                sharedData.setConnections((Integer) msg.get("connection"));
+                SHARED_DATA.setConnections((Integer) msg.get("connection"));
             } else if (msg.containsKey("leave") || msg.containsKey("disconnection")) {
-                sharedData.setConnections(sharedData.getConnections() - 1);
+                SHARED_DATA.setConnections(SHARED_DATA.getConnections() - 1);
             }
         });
     }
@@ -171,8 +145,8 @@ public class ChooseGameController extends FXController {
                     return;
                 }
 
-                sharedData.setNumberOfPlayers((Integer) game.get("num"));
-                sharedData.setGameName((String) game.get("name"));
+                SHARED_DATA.setNumberOfPlayers((Integer) game.get("num"));
+                SHARED_DATA.setGameName((String) game.get("name"));
                 changeScene(1);
 
                 Map<String, Object> connection = new HashMap<>();

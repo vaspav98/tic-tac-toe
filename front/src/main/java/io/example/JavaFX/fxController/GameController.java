@@ -1,12 +1,9 @@
 package io.example.JavaFX.fxController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.example.Application;
 import io.example.JavaFX.BigGame;
-import io.example.JavaFX.SharedData;
 import io.example.JavaFX.Utils;
-import io.example.WebSocketClient;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -43,9 +40,6 @@ public class GameController extends FXController {
     private GridPane gridPane;
 
     @FXML
-    private Label opponentsLabel;
-
-    @FXML
     private Label youLabel;
 
     @FXML
@@ -59,9 +53,6 @@ public class GameController extends FXController {
     private VBox yourTurnNowLabel;
 
     @FXML
-    private GridPane opponentsTable;
-
-    @FXML
     private VBox vBox1;
 
     @FXML
@@ -71,14 +62,6 @@ public class GameController extends FXController {
     private VBox vBox3;
 
     private BigGame game;
-
-    private final ObjectMapper om = new ObjectMapper();
-
-    private WebSocketClient webSocketClient = Application.getWebsocketClient();
-
-    private SharedData sharedData = SharedData.getInstance();
-
-    private Timer timer;
 
     private AnimationTimer animationTimer = new AnimationTimer() {
         @Override
@@ -132,11 +115,11 @@ public class GameController extends FXController {
 
     @FXML
     void initialize() {
-        game = new BigGame(sharedData.getRole(), sharedData.getNumberOfPlayers());
-        youLabel.setText("You: " + sharedData.getUsername() + " (role - \"" + sharedData.getRole() + "\")");
+        game = new BigGame(SHARED_DATA.getRole(), SHARED_DATA.getNumberOfPlayers());
+        youLabel.setText("You: " + SHARED_DATA.getUsername() + " (role - \"" + SHARED_DATA.getRole() + "\")");
 
         int index = 0;
-        for (Map<String, Object> opponent : sharedData.getOpponents()) {
+        for (Map<String, Object> opponent : SHARED_DATA.getOpponents()) {
             index += 1;
             if (index == 1) {
                 vBox1.setVisible(true);
@@ -167,7 +150,7 @@ public class GameController extends FXController {
                             timeSeconds--;
 
                             timerLabel.setText(
-                                    timeSeconds.toString() + " sec");
+                                    timeSeconds + " sec");
                             if (timeSeconds <= 0) {
                                 timeline.stop();
 
@@ -188,7 +171,7 @@ public class GameController extends FXController {
     }
 
     @FXML
-    void btnClick(ActionEvent event) throws JsonProcessingException {
+    void btnClick(ActionEvent event) {
         Button btn = (Button) event.getSource();
 
         if (!game.isGame() || !btn.getText().isEmpty()) {
@@ -201,34 +184,33 @@ public class GameController extends FXController {
             return;
         }
 
-        if (game.isMyTurn()) {
-            timeline.stop();
-            timerLabel.setVisible(false);
-        }
+        timeline.stop();
+        timerLabel.setVisible(false);
 
         int x = GridPane.getColumnIndex(btn) == null ? 0 : GridPane.getColumnIndex(btn);
         int y = GridPane.getRowIndex(btn) == null ? 0 : GridPane.getRowIndex(btn);
         btn.setText(String.valueOf(game.getNowSym()));
         game.clickBtn(x, y);
 
-        sendMsgToRemoteServer(x, y);
+        Map<String, Object> message = new HashMap<>();
+        message.put("x", x);
+        message.put("y", y);
+        sendMsgToRemoteServer(message);
+
         if (!game.isGame()) {
             handleGameOver(x, y, btn);
         }
     }
+
     @FXML
-    void submit(ActionEvent event) throws JsonProcessingException {
-        if (webSocketClient == null) {
+    void submit(ActionEvent event) {
+        if (WEBSOCKET_CLIENT == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Некому посылать сообщение, идёт одиночная игра", ButtonType.OK);
             alert.showAndWait();
             return;
         }
 
-        Map<String, String> message = new HashMap<>();
-        message.put("sms", textField.getText());
-        String json = om.writeValueAsString(message);
-        
-        webSocketClient.sendMessage(json);
+        sendMsgToRemoteServer("sms", textField.getText());
         
         textField.clear();
     }
@@ -236,7 +218,7 @@ public class GameController extends FXController {
     @FXML
     void exit(ActionEvent event) {
         sendMsgToRemoteServer("disconnection", null);
-        sharedData.clean();
+        SHARED_DATA.clean();
         changeScene("finish");
     }
 
@@ -244,7 +226,7 @@ public class GameController extends FXController {
     public void updateInterface(String message) {
         Map<String, Object> msg;
         try {
-            msg = om.readValue(message, Map.class);
+            msg = OBJECT_MAPPER.readValue(message, Map.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -262,7 +244,7 @@ public class GameController extends FXController {
                         "One or more players have disconnected from the game", ButtonType.CLOSE);
                 alert.getDialogPane().setPrefWidth(400);
                 alert.showAndWait();
-                sharedData.clean();
+                SHARED_DATA.clean();
                 changeScene("finish");
             } else if (msg.containsKey("skip")) {
                 game.switchPlayerTurn();
@@ -321,16 +303,15 @@ public class GameController extends FXController {
     }
 
     public void handleGameOver(int x, int y, Button btn) {
-//        sendMsgToRemoteServer(x, y);
         sendMsgToRemoteServer("finish", null);
 
         ButtonType exit = new ButtonType("Exit");
 
         String winnerNick;
         if (game.isMyTurn()) {
-            winnerNick = sharedData.getUsername();
+            winnerNick = SHARED_DATA.getUsername();
         } else {
-            winnerNick = (String) sharedData.getOpponents().stream()
+            winnerNick = (String) SHARED_DATA.getOpponents().stream()
                     .filter(map -> (String.valueOf(map.get("role"))).equals(btn.getText()))
                     .map(map -> map.get("nick"))
                     .findFirst()
@@ -341,54 +322,11 @@ public class GameController extends FXController {
                 exit);
 
         alert.setResultConverter(b -> {
-            sharedData.clean();
+            SHARED_DATA.clean();
             changeScene("finish");
-/*            if (b.equals(exit)) {
-                sharedData.clean();
-                changeScene("finish");
-            } else {
-                String gameName = sharedData.getGameName();
-                int numberOfPlayers = sharedData.getNumberOfPlayers();
-                sharedData.clean();
-                sharedData.setGameName(gameName);
-                sharedData.setNumberOfPlayers(numberOfPlayers);
-
-                sendMsgToRemoteServer("playAgain", gameName);
-                changeScene("playAgain");
-            }*/
             return b;
         });
         alert.showAndWait();
-    }
-
-    public void sendMsgToRemoteServer(int x, int y) {
-        Map<String, Integer> message = new HashMap<>();
-        message.put("x", x);
-        message.put("y", y);
-
-        String json = null;
-        try {
-            json = om.writeValueAsString(message);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
-        webSocketClient.sendMessage(json);
-    }
-
-    public void sendMsgToRemoteServer(String key, Object value) {
-        Map<String, Object> message = new HashMap<>();
-
-        message.put(key, null);
-
-        String json = null;
-        try {
-            json = om.writeValueAsString(message);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
-        webSocketClient.sendMessage(json);
     }
 
     private Node findNodeByCoordinates(int x, int y) {
@@ -401,5 +339,4 @@ public class GameController extends FXController {
         }
         return null;
     }
-
 }
