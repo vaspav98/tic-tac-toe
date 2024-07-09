@@ -8,16 +8,23 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 public class WebSocketClient {
-
-/*    private static final String URL = "ws://localhost:8080/events"; */
-    private static final String URL = "ws://tic-tac-toe-olr4.onrender.com//events";
+    private String url;
 
     private WebSocketSession session;
+
+    public WebSocketClient() {
+        String mode = System.getenv("MODE");
+        if (mode != null && mode.equals("dev")) {
+            url = "ws://localhost:8080/events";
+        } else {
+            url = "ws://tic-tac-toe-olr4.onrender.com//events";
+        }
+    }
 
     public void connect() throws ExecutionException, InterruptedException {
 
         org.springframework.web.socket.client.WebSocketClient client = new StandardWebSocketClient();
-        session = client.doHandshake(new MyWebSocketHandler(), URL).get();
+        session = client.doHandshake(new MyWebSocketHandler(), url).get();
 
     }
 

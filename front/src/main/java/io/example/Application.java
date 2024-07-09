@@ -6,15 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Arrays;
 
 public class Application extends javafx.application.Application {
     private static WebSocketClient webSocketClient;
-/*    private static FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/chooseGame.fxml"));*/
     private static FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("/connectionToServer.fxml"));
 
     @Override

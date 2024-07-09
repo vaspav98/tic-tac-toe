@@ -1,3 +1,5 @@
+export MODE=dev
+
 refresh-and-start-all:
 	rm -r front2/src &
 	rm -r front3/src &
@@ -29,10 +31,10 @@ prepare-jars-before-pushing:
 	cp server/build/libs/server-1.0-SNAPSHOT.jar server/
 
 refresh-all:
-		rm -r front2/src &
-		rm -r front3/src &
-		rm -r front4/src &
-		gradle front:clean
-		cp -r front/src front2/src
-		cp -r front/src front3/src
-		cp -r front/src front4/src
+	rm -r front2/src &
+	rm -r front3/src &
+	rm -r front4/src &
+	gradle front:clean
+	cp -r front/src front2/src
+	cp -r front/src front3/src
+	cp -r front/src front4/src
