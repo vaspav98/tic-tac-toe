@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -25,16 +26,10 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Timer;
 
 public class GameController extends FXController {
-
-    @FXML
-    private TextField textField;
-
-    @FXML
-    private TextField textField2;
 
     @FXML
     private GridPane gridPane;
@@ -61,6 +56,15 @@ public class GameController extends FXController {
     @FXML
     private VBox vBox3;
 
+    @FXML
+    private VBox vBox4;
+
+    @FXML
+    private TextArea chatArea;
+
+    @FXML
+    private TextField messageField;
+
     private BigGame game;
 
     private AnimationTimer animationTimer = new AnimationTimer() {
@@ -69,73 +73,123 @@ public class GameController extends FXController {
             yourTurnNowLabel.setVisible(game.isMyTurn());
 
             if (vBox1.getId().equals(String.valueOf(game.getNowSym()))) {
+/*                vBox1.getStyleClass().add("Vbox-red");
+                vBox2.getStyleClass().add("Vbox-gray");
+                vBox3.getStyleClass().add("Vbox-gray");
+                vBox4.getStyleClass().add("Vbox-gray");*/
                 vBox1.setStyle("-fx-background-color: #e30e0e; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px; " +
+                        "-fx-border-color: #000");
                 vBox2.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
                 vBox3.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
+                vBox4.setStyle("-fx-background-color: #a19f9f; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
             } else if (vBox2.getId().equals(String.valueOf(game.getNowSym()))) {
+                vBox1.getStyleClass().add("Vbox-gray");
+                vBox2.getStyleClass().add("Vbox-red");
+                vBox3.getStyleClass().add("Vbox-gray");
+                vBox4.getStyleClass().add("Vbox-gray");
                 vBox2.setStyle("-fx-background-color: #e30e0e; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
                 vBox1.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
                 vBox3.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
+                vBox4.setStyle("-fx-background-color: #a19f9f; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
             } else if (vBox3.getId().equals(String.valueOf(game.getNowSym()))) {
+/*                vBox1.getStyleClass().add("Vbox-gray");
+                vBox2.getStyleClass().add("Vbox-gray");
+                vBox3.getStyleClass().add("Vbox-red");
+                vBox4.getStyleClass().add("Vbox-gray");*/
                 vBox3.setStyle("-fx-background-color: #e30e0e; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
                 vBox1.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
                 vBox2.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
-            } else {
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
+                vBox4.setStyle("-fx-background-color: #a19f9f; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
+            } else if (vBox4.getId().equals(String.valueOf(game.getNowSym()))) {
+/*                vBox1.getStyleClass().add("Vbox-gray");
+                vBox2.getStyleClass().add("Vbox-gray");
+                vBox3.getStyleClass().add("Vbox-gray");
+                vBox4.getStyleClass().add("Vbox-red");*/
+                vBox4.setStyle("-fx-background-color: #e30e0e; " +
+                        "-fx-background-radius: 5px; " +
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
                 vBox1.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
                 vBox2.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
                 vBox3.setStyle("-fx-background-color: #a19f9f; " +
                         "-fx-background-radius: 5px; " +
-                        "-fx-border-radius: 5px;");
+                        "-fx-border-radius: 5px;" +
+                        "-fx-border-color: #000");
             }
-
         }
     };
 
     @FXML
     void initialize() {
         game = new BigGame(SHARED_DATA.getRole(), SHARED_DATA.getNumberOfPlayers());
-        youLabel.setText("You: " + SHARED_DATA.getUsername() + " (role - \"" + SHARED_DATA.getRole() + "\")");
+        youLabel.setText("You: " + SHARED_DATA.getUsername() + " (role - '" + SHARED_DATA.getRole() + "')");
 
-        int index = 0;
-        for (Map<String, Object> opponent : SHARED_DATA.getOpponents()) {
-            index += 1;
-            if (index == 1) {
-                vBox1.setVisible(true);
-                vBox1.setId(String.valueOf(opponent.get("role")));
+        List<Map<String, Object>> players = SHARED_DATA.getOpponents();
+        Map<String, Object> you = new HashMap<>();
+        you.put("nick", SHARED_DATA.getUsername());
+        you.put("role", SHARED_DATA.getRole());
+        players.add(you);
+
+        for (Map<String, Object> player : players) {
+            if (player.get("role").equals('X')) {
+                vBox1.setId("X");
                 Label l = ((Label) vBox1.getChildren().get(0));
-                l.setText("- " + opponent.get("nick") + " (role - \"" + opponent.get("role") + "\")");
-            } else if (index == 2) {
-                vBox2.setVisible(true);
-                vBox2.setId(String.valueOf(opponent.get("role")));
+                l.setText("1. " + player.get("nick") + " (role - '" + "X" + "')");
+            } else if (player.get("role").equals('0')) {
+                vBox2.setId("0");
                 Label l = ((Label) vBox2.getChildren().get(0));
-                l.setText("- " + opponent.get("nick") + " (role - \"" + opponent.get("role") + "\")");
-            } else if (index == 3) {
+                l.setText("2. " + player.get("nick") + " (role - '" + "0" + "')");
+            } else if (player.get("role").equals('#')) {
                 vBox3.setVisible(true);
-                vBox3.setId(String.valueOf(opponent.get("role")));
+                vBox3.setId("#");
                 Label l = ((Label) vBox3.getChildren().get(0));
-                l.setText("- " + opponent.get("nick") + " (role - \"" + opponent.get("role") + "\")");
+                l.setText("3. " + player.get("nick") + " (role - '" + "#" + "')");
+            } else if (player.get("role").equals('$')) {
+                vBox4.setVisible(true);
+                vBox4.setId("$");
+                Label l = ((Label) vBox4.getChildren().get(0));
+                l.setText("4. " + player.get("nick") + " (role - '" + "$" + "')");
             }
         }
 
@@ -203,16 +257,18 @@ public class GameController extends FXController {
     }
 
     @FXML
-    void submit(ActionEvent event) {
-        if (WEBSOCKET_CLIENT == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Некому посылать сообщение, идёт одиночная игра", ButtonType.OK);
-            alert.showAndWait();
-            return;
-        }
+    void sendSms(ActionEvent event) {
+        String content = messageField.getText();
+        if (!content.isEmpty()) {
+            chatArea.appendText("Я: " + content + "\n");
 
-        sendMsgToRemoteServer("sms", textField.getText());
-        
-        textField.clear();
+            Map<String, Object> message = new HashMap<>();
+            message.put("content", content);
+            message.put("nick", SHARED_DATA.getUsername());
+            sendMsgToRemoteServer("sms", message);
+
+            messageField.clear();
+        }
     }
 
     @FXML
@@ -236,7 +292,12 @@ public class GameController extends FXController {
         // свойств элементов интерфейса или отображение анимаций, должно происходить на главном потоке.
         Platform.runLater(() -> {
             if (msg.containsKey("sms")) {
-                textField2.setText((String) msg.get("sms"));
+                Map<String, Object> contentAndNick = (Map<String, Object>) msg.get("sms");
+                String content = (String) contentAndNick.get("content");
+                String nick = (String) contentAndNick.get("nick");
+
+                chatArea.appendText(nick + ": " + content + "\n");
+
             } else if (msg.containsKey("x") && msg.containsKey("y")) {
                 handleOpponentMove((Integer) msg.get("x"), (Integer) msg.get("y"));
             } else if (msg.containsKey("disconnection")) {

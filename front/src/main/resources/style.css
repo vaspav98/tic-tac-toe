@@ -1,0 +1,13 @@
+.Vbox-red {
+    -fx-background-color: #e30e0e;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #000;
+}
+
+.Vbox-gray {
+    -fx-background-color: #a19f9f;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #000;
+}

@@ -169,7 +169,12 @@ public class PreparationController extends FXController {
 
         if (SHARED_DATA.getOpponents().size() == SHARED_DATA.getNumberOfPlayers() - 1 && newStage != null) {
             Application.setFxmlLoader(new FXMLLoader(Application.class.getResource("/bigMain.fxml")));
-            scene = new Scene(Application.getFxmlLoader().load(), 1100, 760);
+            scene = new Scene(Application.getFxmlLoader().load(), 1100, 705);
+
+            //Подключаем стили css к сцене
+//            scene.getStylesheets().add("style.css");
+//            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+//            scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         } else if (newStage != null && SHARED_DATA.getGameName() != null) {
             FXMLLoader waitingFXMLLoader = new FXMLLoader(Application.class.getResource("/waiting.fxml"));
             waitingFXMLLoader.setController(new WaitingController());
